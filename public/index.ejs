@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Shortened URL Display</title>
+		<style>
+			body {
+				font-family: Arial, sans-serif;
+				background-color: #333; /* Dark background color */
+				color: #fff; /* Light text color */
+			}
+
+			.container {
+				max-width: 400px;
+				margin: 0 auto;
+				padding: 20px;
+				border: 1px solid #555; /* Dark border color */
+				border-radius: 5px;
+				background-color: #444; /* Slightly lighter background color */
+			}
+
+			h1 {
+				text-align: center;
+			}
+
+			label {
+				display: block;
+				margin-bottom: 5px;
+			}
+
+			#shortUrlDisplay label {
+				font-weight: bold;
+			}
+
+			#shortUrl {
+				word-wrap: break-word; /* Wraps long URLs */
+				text-decoration: none; /* Remove underline from the link */
+				color: #007bff; /* Set the link color */
+			}
+
+			#shortUrl:hover {
+				text-decoration: underline; /* Add underline on hover */
+			}
+
+			#copyButton {
+				display: block;
+				width: 100%;
+				padding: 10px;
+				background-color: #007bff;
+				color: #fff;
+				border: none;
+				border-radius: 5px;
+				cursor: pointer;
+				margin-top: 10px;
+			}
+			#copyButton:hover {
+				background-color: #1385ff;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<!-- <h1>Shortened URL</h1> -->
+			<div id="shortUrlDisplay">
+				<label>
+                    <%if (isNew) { %>
+                        Shortened URL:
+                    <% } else { %>
+                        URL already shortened
+                    <% } %>
+                </label>
+				<a data-href="<%= url %>" target="_blank" id="shortUrl"></a>
+				<button id="copyButton">Copy</button>
+			</div>
+		</div>
+
+		<script>
+			const shortUrl = document.getElementById("shortUrl");
+			const copyButton = document.getElementById("copyButton");
+
+            function getFullURL(path) {
+				return new URL('/' + path, window.location).href;
+			}
+            shortUrl.textContent = getFullURL(shortUrl.dataset.href);
+            shortUrl.href = getFullURL(shortUrl.dataset.href);
+
+			copyButton.addEventListener("click", () => {
+				// Create a text area element to hold the URL
+				const textArea = document.createElement("textarea");
+				textArea.value = shortUrl.textContent;
+
+				// Append the text area to the document
+				document.body.appendChild(textArea);
+
+				// Select and copy the URL from the text area
+				textArea.select();
+				document.execCommand("copy");
+
+				// Remove the temporary text area
+				document.body.removeChild(textArea);
+
+				// Change the button text to indicate the URL is copied
+				copyButton.textContent = "Copied!";
+
+				// Reset the button text after a brief delay
+				setTimeout(function () {
+					copyButton.textContent = "Copy";
+				}, 2000); // Reset after 2 seconds
+			});
+		</script>
+	</body>
+</html>
