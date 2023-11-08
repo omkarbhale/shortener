@@ -53,7 +53,6 @@ const navigateTo = async (req, res, next) => {
 		const existingEntry = await Url.findOne({ shortUrl: shortened });
 		
 		if (!existingEntry) {
-            console.log("Shortened: " + shortened + ", existingEntry: " + existingEntry);
 			return res.status(404).json({ error: "URL not found" });
 		}
         
