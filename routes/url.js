@@ -2,7 +2,7 @@ const express = require("express");
 
 const router = express.Router();
 
-const { shortenUrl, navigateTo } = require("../controllers/url.js");
+const { serveHome, shortenUrl, navigateTo } = require("../controllers/url.js");
 
 const { rateLimit, MemoryStore } = require("express-rate-limit");
 const limiter = rateLimit({
@@ -10,8 +10,8 @@ const limiter = rateLimit({
 	max: 10, // limit each IP to 10 requests per windowMs
 });
 
+router.get("/", serveHome);
 router.get("/shorten", limiter, shortenUrl);
-
 router.get("/:shortened", navigateTo);
 
 module.exports = router;

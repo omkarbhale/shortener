@@ -31,13 +31,17 @@
 				font-weight: bold;
 			}
 
-			#shortUrl {
+			#shortUrl,
+			#originalUrl {
+				display: block;
 				word-wrap: break-word; /* Wraps long URLs */
 				text-decoration: none; /* Remove underline from the link */
 				color: #007bff; /* Set the link color */
+				margin-bottom: 1rem;
 			}
 
-			#shortUrl:hover {
+			#shortUrl:hover,
+			#originalUrl:hover {
 				text-decoration: underline; /* Add underline on hover */
 			}
 
@@ -62,26 +66,35 @@
 			<!-- <h1>Shortened URL</h1> -->
 			<div id="shortUrlDisplay">
 				<label>
-                    <%if (isNew) { %>
-                        Shortened URL:
-                    <% } else { %>
-                        URL already shortened
-                    <% } %>
-                </label>
+					<%if (isNew) { %> Shortened URL: <% } else { %> URL already
+					shortened <% } %>
+				</label>
+				<a
+					data-href="<%= originalUrl %>"
+					target="_blank"
+					id="originalUrl"
+				></a>
+				<label>
+					<%if (isNew) { %> Shortened URL: <% } else { %> URL already
+					shortened <% } %>
+				</label>
 				<a data-href="<%= url %>" target="_blank" id="shortUrl"></a>
 				<button id="copyButton">Copy</button>
 			</div>
 		</div>
 
 		<script>
+			const originalUrl = document.getElementById("originalUrl");
 			const shortUrl = document.getElementById("shortUrl");
 			const copyButton = document.getElementById("copyButton");
 
-            function getFullURL(path) {
-				return new URL('/' + path, window.location).href;
+			function getFullURL(path) {
+				return new URL("/" + path, window.location).href;
 			}
-            shortUrl.textContent = getFullURL(shortUrl.dataset.href);
-            shortUrl.href = getFullURL(shortUrl.dataset.href);
+			originalUrl.textContent = originalUrl.dataset.href;
+			originalUrl.href = originalUrl.dataset.href;
+			shortUrl.textContent = getFullURL(shortUrl.dataset.href);
+			shortUrl.href = getFullURL(shortUrl.dataset.href);
 
 			copyButton.addEventListener("click", () => {
 				// Create a text area element to hold the URL

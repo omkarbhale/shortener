@@ -1,6 +1,13 @@
 const Url = require("../models/Url.js");
-const url = require("url");
 const { standardizeURL, generateShortUrl } = require("../utils/url.js");
+
+const serveHome = async (req, res, next) => {
+	try {
+        return res.render("../views/index");
+    } catch (error) {
+        next(error);
+    }
+};
 
 const shortenUrl = async (req, res, next) => {
 	try {
@@ -15,8 +22,9 @@ const shortenUrl = async (req, res, next) => {
 			originalUrl: standardizedURL,
 		});
 		if (existingEntry != null) {
-			return res.render("../public/index", {
+			return res.render("../views/link", {
 				isNew: false,
+				originalUrl: existingEntry.originalUrl,
 				url: existingEntry.shortUrl,
 			});
 		}
@@ -38,8 +46,9 @@ const shortenUrl = async (req, res, next) => {
 		});
 		await newEntry.save();
 
-		return res.render("../public/index", {
+		return res.render("../views/link", {
 			isNew: true,
+			originalUrl: standardizedURL,
 			url: newEntry.shortUrl,
 		});
 	} catch (error) {
@@ -62,4 +71,4 @@ const navigateTo = async (req, res, next) => {
 	}
 };
 
-module.exports = { shortenUrl, navigateTo };
+module.exports = { serveHome, shortenUrl, navigateTo };

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Shortened URL Display</title>
+		<style>
+			body {
+				font-family: Arial, sans-serif;
+				background-color: #333; /* Dark background color */
+				color: #fff; /* Light text color */
+			}
+
+			.container {
+				max-width: 400px;
+				margin: 3rem auto;
+				padding: 20px;
+				border: 1px solid #555; /* Dark border color */
+				border-radius: 5px;
+				background-color: #444; /* Slightly lighter background color */
+			}
+
+			label {
+				font-size: 2rem;
+				display: block;
+				margin-bottom: 5px;
+			}
+
+			#inputDisplay label {
+				font-weight: bold;
+			}
+
+			#originalUrl {
+				width: 80%;
+				display: block;
+				font-size: 1.4rem;
+				margin: 1rem 0;
+			}
+
+			#shortenButton {
+				display: block;
+				/* width: 100%; */
+				padding: 0.6rem 1.2rem;
+				background-color: #007bff;
+				color: #fff;
+				border: none;
+				border-radius: 5px;
+				cursor: pointer;
+				margin-top: 1rem;
+			}
+			#shortenButton:hover {
+				background-color: #1385ff;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<div id="inputDisplay">
+				<label> Enter a URL: </label>
+				<input type="text" id="originalUrl" />
+				<button id="shortenButton">Shorten</button>
+			</div>
+		</div>
+
+		<script>
+			const originalUrl = document.getElementById("originalUrl");
+			const shortenButton = document.getElementById("shortenButton");
+
+			shortenButton.addEventListener("click", (e) => {
+				e.preventDefault();
+				const url = originalUrl.value;
+				if (!url) {
+					alert("Please enter a URL");
+					return;
+				}
+				const anchorElement = document.createElement("a");
+				anchorElement.href = `/shorten?url=${url}`;
+				anchorElement.click();
+			});
+
+			document.addEventListener("keypress", (e) => {
+                if (e.keyCode === 13) {
+                    // Clicking on shorten button
+                    shortenButton.click();
+                }
+            });
+		</script>
+	</body>
+</html>

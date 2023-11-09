@@ -12,10 +12,6 @@ app.use(express.json());
 // Set render engine to ejs
 app.set("view engine", "ejs");
 
-app.get("/", (req, res, next) => {
-    res.send("Server running!");
-});
-
 app.use("/", urlRouter);
 
 const start = async () => {
