@@ -4,15 +4,10 @@
 
 ## Usage
 
-To shorten a URL, simply navigate to `/shorten` and provide your URL as a query parameter, like this:
-
-```
-/shorten?url=google.com
-```
-
-You will be presented with a page that displays the shortened URL along with an option to copy it. A screenshot of this page is available for reference:
+The UI is pretty self-describing. Just navigate to [deployed website](http://52.66.248.35:4000/)
 
 ![Screenshot](/screenshots/index.ejs.jpg)
+![Screenshot](/screenshots/link.ejs.jpg)
 
 ## License
 
