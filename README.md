@@ -6,8 +6,8 @@
 
 The UI is pretty self-describing. Just navigate to [deployed website](http://52.66.248.35:4000/)
 
-![Screenshot](/screenshots/index.ejs.jpg)
-![Screenshot](/screenshots/link.ejs.jpg)
+![Screenshot](/screenshots/index.jpg)
+![Screenshot](/screenshots/link.jpg)
 
 ## License
 
